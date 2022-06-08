@@ -1,0 +1,21 @@
+*{
+    
+}
+
+.squares{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:2px solid black;
+    display:grid;
+    width:100px;
+    height:100px;
+    font-size:36px;
+    gap:0px;
+}
+
+.board{
+    display:grid;
+    justify-content:center;
+    grid-template:repeat(3, 100px)/ repeat(3, 100px)
+}
