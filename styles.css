@@ -19,3 +19,60 @@
     justify-content:center;
     grid-template:repeat(3, 100px)/ repeat(3, 100px)
 }
+
+.buttonXO{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+.buttonXO button{
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-right: 20px;
+    padding-left:20px;
+    font-size:36px;
+} 
+
+.resetbtn{
+    margin-top:20px;
+    margin-left:100px;
+    margin-right:100px;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-right: 20px;
+    padding-left:20px;
+    font-size:36px;
+}
+
+.winner{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.winner p{
+    font-size:36px;
+    text-align:center;
+}
+
+.forms{
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.p2{
+    margin-top:20px;
+}
+
+.p1,
+.p2{
+    font-size:30px;
+}
+
+input{
+    padding:5px;
+    font-size:20px;
+}

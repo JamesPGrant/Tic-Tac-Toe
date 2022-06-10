@@ -18,42 +18,72 @@ const board = document.querySelector(`.board`);
 const X = document.querySelector(`.X`)
 const O = document.querySelector(`.O`)
 const buttons = document.querySelectorAll(`.buttonXO`)
-const RESETBUTTON = document.createElement(`button`)
-document.body.append(RESETBUTTON);
-RESETBUTTON.textContent = `RESET`
-RESETBUTTON.style.display = `none`
 const winner = document.createElement(`div`);
+winner.classList.add(`winner`)
 document.body.appendChild(winner)
 const whoWon = document.createElement(`p`);
+const RESETBUTTON = document.createElement(`button`)
+const INPUT1 =document.querySelector(`#player1`)
+const INPUT2 =document.querySelector(`#player2`)
+const LABEL = document.querySelector(`#label`)
+const LABEL2 = document.querySelector(`#label2`)
+winner.append(RESETBUTTON);
+RESETBUTTON.textContent = `RESET`
+RESETBUTTON.style.display = `none`
+RESETBUTTON.classList.add(`resetbtn`)
 
 //123 123 123 321 111 222 333 
 //add classes for each square like 1, 2 , 3 , 4, 5, 6, 7, 8,9
 //array push each square taken then every array method then.includes
+
+
 const player = (choice, name) =>{
     const getChoice = () => choice;
     const getName = () => name;
+    const TIE = () => {
+        const squares = document.querySelectorAll('.squares')
+        const squared = Array.from(squares)
+
+        
+    }
     const whoLost = () =>{
      for(let i = 0; i < win.length; i++){
-         const squares = document.querySelectorAll(`.squares`)
+        const squares = document.querySelectorAll('.squares')
+        const squared = Array.from(squares)
             if(win[i].every(ele =>(player1Taken).includes(ele))){
                 winner.appendChild(whoWon);
                 whoWon.textContent = `${name} won!`
-                console.log('you won!')       
+                RESETBUTTON.style.display = `block`
+                RESETBUTTON.addEventListener(`click`, ()=>{
+                    window.location.reload()
+                })
             } else if(win[i].every(ele =>(player2Taken).includes(ele))){
                 winner.appendChild(whoWon);
                 whoWon.textContent = `${name} won!`
-                console.log(`i won!`)
-            } else if(squares.forEach(square => square.id !== ``) && 
-            win[i].every(ele => !player2Taken.includes(ele) &&
-            win[i].every(ele => !player1Taken.includes(ele)))){
+                RESETBUTTON.style.display = `block`
+                RESETBUTTON.addEventListener(`click`, ()=>{
+                    window.location.reload()
+                })
+            }  
+            const allSquares = squared.every((square) => square.id !== ``);
+            console.log(allSquares)
+            if(allSquares === true){
                 winner.appendChild(whoWon);
-                whoWon.textContent = `Its a Tie!`
+                whoWon.textContent = `TIE`
+                RESETBUTTON.style.display = `block`
+                RESETBUTTON.addEventListener(`click`, ()=>{
+                    window.location.reload()
+                })
+            }
+
             }
         }
-    }
-    return { choice:getChoice(), name:getName(), whoLost };
+    return { choice:getChoice(), name:getName(), whoLost, TIE};
 
 }
+
+
+
 const GAMEBOARD = (() =>{
     const populate = () =>{
         for(let i = 1; i<10; i++){
@@ -74,23 +104,31 @@ GAMEBOARD.populate()
 
 function userChoice(){
     X.addEventListener('click', ()=>{
-        const player1 = player(`X`, 'Player1')
-        const player2 = player(`O`, `Player2`)
+        const player1 = player(`X`, `${INPUT1.value}`)
+        const player2 = player(`O`,`${INPUT2.value}`)
         players.push(player1)
         players.push(player2)
-    
+        XO()
         console.log(players)
+        INPUT1.style.display = `none`
+        INPUT2.style.display = `none`
+        LABEL.style.display =`none`
+        LABEL2.style.display = `none`
         buttons.forEach(button =>{
             button.style.display = `none`;
         })
     })
     O.addEventListener('click', () =>{
-        const player1 = player(`O`, 'player1')
-        const player2 = player(`X`, `player2`)
+        const player1 = player(`O`, `${INPUT1.value}`)
+        const player2 = player(`X`, `${INPUT2.value}`)
         players.push(player1)
         players.push(player2)
-    
         console.log(players)
+        XO()
+        INPUT1.style.display = `none`
+        INPUT2.style.display = `none`
+        LABEL.style.display =`none`
+        LABEL2.style.display = `none`
         buttons.forEach(button =>{
             button.style.display = `none`;
         })
@@ -106,14 +144,11 @@ userChoice()
 //new player is set by prompt either global or something like that
 function XO(e, currentPlayer){
     const squares = document.querySelectorAll('.squares')
+    const squared = Array.from(squares)
     squares.forEach(square => square.addEventListener('click', (e) => {
         const player1 = players[0]
         const player2 = players[1]
         if(whoWon.textContent !== ``){
-            RESETBUTTON.style.display = `block`
-            RESETBUTTON.addEventListener(`click`, ()=>{
-                window.location.reload()
-            })
             return
         }
          if( playerCurrent === ``){
@@ -138,10 +173,11 @@ function XO(e, currentPlayer){
             player2.whoLost()
             return playerCurrent = ``  
         }
+
     }))
 
 }
-XO()
+
 
 
 /*             if(squares.id === player1.choice || squares.id === player2.choice){
